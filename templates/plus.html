@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gmail Plus Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            color: white;
+            padding: 14px 20px;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            text-decoration: none;
+        }
+        .container {
+            margin: 20px;
+        }
+    </style>
+    <script>
+        function copyEmails() {
+            var copyText = document.getElementById("emails");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            alert("Copied the text: " + copyText.value);
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/plus">Plus Generator</a>
+    </div>
+    <div class="container" align="center">
+        <h1>Gmail Plus Generator</h1>
+        <form method="POST">
+            <label for="num">Number of combinations:</label><br>
+            <input type="number" id="num" name="num" min="1" max="10000"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email"><br>
+            <input type="submit" value="Generate">
+        </form>
+        {% if emails %}
+            <h2>Generated Emails:</h2>
+            <textarea id="emails" rows="10" cols="30">
+                {{ emails|join('\n') }}
+            </textarea>
+            <button onclick="copyEmails()">Copy All</button>
+            <a href="/download">Download as CSV</a>
+        {% endif %}
+    </div>
+</body>
+</html>
