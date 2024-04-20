@@ -1,9 +1,10 @@
 from flask import Flask, request, render_template, session, make_response
 import itertools
-import random
 import string
 import csv
 import io
+import secrets
+
 app = Flask(__name__)
 
 app.secret_key = "df45sdf5ds1fsd5d51sf1sd5"
@@ -57,7 +58,7 @@ def generate_plus_combinations(username, num):
     combinations = []
 
     for i in range(num):  # Generate num combinations
-        random_string = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+        random_string = ''.join(secrets.SystemRandom().choices(string.ascii_lowercase + string.digits, k=5))
         combinations.append(username + '+' + random_string)
 
     return combinations
